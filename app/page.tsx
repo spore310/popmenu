@@ -1,12 +1,22 @@
+"use client"
 import Image from 'next/image'
 import styles from './page.module.css'
-
+import axios from 'axios'
+import { useEffect } from 'react'
 export default function Home() {
+  useEffect(()=>{
+    const main = async() =>{
+
+      const response = await axios.post('/api/menu', {data: {message: 'heelo'}});
+      console.log(response);
+    }
+    main()
+  },[])
   return (
     <main className={styles.main}>
       <div className={styles.description}>
         <p>
-          Get started by editing&nbsp;
+          Hi Tristin!!&nbsp;
           <code className={styles.code}>app/page.tsx</code>
         </p>
         <div>
@@ -15,8 +25,8 @@ export default function Home() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            By{' '}
-            <Image
+            By{' '} 
+            <Image 
               src="/vercel.svg"
               alt="Vercel Logo"
               className={styles.vercelLogo}
