@@ -1,6 +1,6 @@
 import { MenuItem } from "./menuItem";
 
-export interface Menu {
+export interface MenuInput {
   name: string;
   menu: MenuItem;
 }

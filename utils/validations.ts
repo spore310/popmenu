@@ -15,7 +15,7 @@ export const validateMenuItems = (
    * Using object keys to keep count of duplicates.
    * Using countId to count id instead of index of array for consistency against validation
    **/
-  const nameChecker: any = {};
+  const nameChecker: { [key: string]: number } = {};
   //   let countId: number = 0;
   const invalidItems: MenuItem[] = [];
   const menuItems: MenuItem[] | [] = items?.map((item: MenuItemInput) => {
@@ -59,4 +59,31 @@ export const isNameNotEmpty = (name: string): boolean => !!name.trim();
 
 export const isNameValid = (name: string): boolean => {
   return isNameNotEmpty(name) && !/[^a-zA-Z0-9 ' , !]/.test(name);
+};
+export const hasNoDuplicateNames = (menus: any[]): boolean => {
+  let hasDuplicates: boolean = false;
+  if (menus?.length <= 0) {
+    throw {
+      message: "Cannot give empty array",
+      popmenu: true,
+    };
+  }
+  const counter: { [key: string]: number } = {};
+  menus.forEach((item: MenuItemInput) => {
+    if (counter[item?.name] >= 0) {
+      counter[item?.name] += 1;
+    } else {
+      counter[item?.name] = 1;
+    }
+    if (counter[item?.name] >= 2) {
+      hasDuplicates = true;
+    }
+  });
+  if (hasDuplicates) {
+    throw {
+      popmenu: true,
+      message: "Restaurant and Menu names cannot be duplicated",
+    };
+  }
+  return true;
 };
