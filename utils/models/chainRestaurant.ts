@@ -4,21 +4,26 @@ import { hasNoDuplicateNames, isNameValid } from "../validations";
 import { Restaurant } from "./Restaurant";
 
 export class Restaurants {
-  private Restaurants: Restaurant[] = [];
-  constructor(private _name: string, private _Restaurants: RestaurantsInput[]) {
-    if (hasNoDuplicateNames(_Restaurants) && !isNameValid(this._name)) {
-      this.Restaurants = this._Restaurants.map(
-        (rest) => new Restaurant(rest.name, rest.Restaurants)
-      );
+  private restaurants: Restaurant[] = [];
+  private restaurantGroup: string = "";
+  constructor(private _name: string, private _restaurants: RestaurantsInput[]) {
+    if (hasNoDuplicateNames(_restaurants) && isNameValid(this._name)) {
+      this.restaurantGroup = this._name;
+      this.restaurants =
+        this._restaurants.length > 0
+          ? this._restaurants?.map((rest: any) => {
+              return new Restaurant(rest.name, rest.menus);
+            })
+          : [];
     }
   }
   public addRestaurant(restaurant: RestaurantsInput[]) {
-    this.Restaurants = [
-      ...this.Restaurants,
+    this.restaurants = [
+      ...this.restaurants,
       ...restaurant.map((rest) => new Restaurant(rest.name, rest.Restaurants)),
     ];
   }
   get getRestaurants(): Restaurant[] | [] {
-    return this.Restaurants;
+    return this.restaurants;
   }
 }

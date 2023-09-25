@@ -28,7 +28,9 @@ export class MenuItems {
       this.menuItems = [...this.menuItems, ...newItems];
     }
   }
-
+  get invalidItems() {
+    return this.invalidMenuItems;
+  }
   public getItemById(id: string): MenuItem | [] {
     if (this.menuItems.length > 0) {
       return this.menuItems[this.menuItems.findIndex((item) => item.id === id)];

@@ -7,7 +7,7 @@ export default function Home() {
   useEffect(()=>{
     const main = async() =>{
 
-      const response = await axios.post('/api/menu', {data: {message: 'heelo'}});
+      const response = await axios.get('/api/menu');
       console.log(response);
     }
     main()

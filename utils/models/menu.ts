@@ -25,6 +25,9 @@ export class Menu {
   public addMenuItem(item: MenuItemInput[]) {
     this.menu.addMenuItem(item);
   }
+  get getInvalidItems() {
+    return this.menu.invalidItems;
+  }
   public getItemById(id: string) {
     return this.menu.getItemById(id);
   }

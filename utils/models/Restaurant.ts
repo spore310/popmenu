@@ -15,8 +15,12 @@ export class Restaurant {
     } else {
       this.name = this._name;
     }
-    if (this._menus.length > 0 && hasNoDuplicateNames(this._menus)) {
-      this.menus = this._menus.map((menu) => new Menu(menu.name, menu.menus));
+    if (hasNoDuplicateNames(this._menus)) {
+      this.menus = this._menus?.length
+        ? this._menus.map((menu) => {
+            return new Menu(menu.name, menu.menus);
+          })
+        : [];
     } else {
       throw {
         popmenu: true,

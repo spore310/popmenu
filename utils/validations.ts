@@ -56,9 +56,9 @@ export const validateMenuItems = (
 };
 
 export const isNameNotEmpty = (name: string): boolean => !!name.trim();
-
+export const whitespaceRemoved = (str: string) => str.replace(/\s/g, "");
 export const isNameValid = (name: string): boolean => {
-  return isNameNotEmpty(name) && !/[^a-zA-Z0-9 ' , !]/.test(name);
+  return isNameNotEmpty(name) && !/[@ #$%^*]/.test(whitespaceRemoved(name));
 };
 export const hasNoDuplicateNames = (menus: any[]): boolean => {
   let hasDuplicates: boolean = false;
@@ -69,16 +69,17 @@ export const hasNoDuplicateNames = (menus: any[]): boolean => {
     };
   }
   const counter: { [key: string]: number } = {};
-  menus.forEach((item: MenuItemInput) => {
-    if (counter[item?.name] >= 0) {
-      counter[item?.name] += 1;
-    } else {
-      counter[item?.name] = 1;
-    }
-    if (counter[item?.name] >= 2) {
-      hasDuplicates = true;
-    }
-  });
+  menus?.length &&
+    menus?.forEach((item: MenuItemInput) => {
+      if (counter[item?.name] >= 0) {
+        counter[item?.name] += 1;
+      } else {
+        counter[item?.name] = 1;
+      }
+      if (counter[item?.name] >= 2) {
+        hasDuplicates = true;
+      }
+    });
   if (hasDuplicates) {
     throw {
       popmenu: true,

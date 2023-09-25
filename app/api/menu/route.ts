@@ -1,9 +1,11 @@
+import { JSONConvertTool, popmenuDataConvert } from "@/utils";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(req: NextRequest) {
+export async function GET(req: NextRequest) {
   // const menuInput = req.body.data;w
-  console.log(req.body);
-  return new NextResponse(JSON.stringify({ answer: `${req.body}` }), {
+  const brand = popmenuDataConvert();
+  const response = JSONConvertTool(brand);
+  return new NextResponse(JSON.stringify({ ...response }), {
     status: 200,
   });
 }
